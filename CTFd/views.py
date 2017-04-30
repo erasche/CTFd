@@ -184,7 +184,8 @@ def profile():
 
             if len(errors) > 0:
                 return render_template('profile.html', name=name, email=email, website=website,
-                                       affiliation=affiliation, country=country, errors=errors)
+                                       affiliation=affiliation, country=country, errors=errors,
+                                       galaxy_password=galaxy_password)
             else:
                 team = Teams.query.filter_by(id=session['id']).first()
                 if not get_config('prevent_name_change'):
@@ -213,7 +214,8 @@ def profile():
             prevent_name_change = get_config('prevent_name_change')
             confirm_email = get_config('verify_emails') and not user.verified
             return render_template('profile.html', name=name, email=email, website=website, affiliation=affiliation,
-                                   country=country, prevent_name_change=prevent_name_change, confirm_email=confirm_email)
+                                   country=country, prevent_name_change=prevent_name_change, confirm_email=confirm_email,
+                                   galaxy_password=user.galaxy_password)
     else:
         return redirect(url_for('auth.login'))
 

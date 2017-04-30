@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: cb3cfcc47e2f
-Revises: 
+Revises:
 Create Date: 2017-01-17 15:39:42.804290
 
 """
@@ -52,6 +52,7 @@ def upgrade():
     sa.Column('name', sa.String(length=128), nullable=True),
     sa.Column('email', sa.String(length=128), nullable=True),
     sa.Column('password', sa.String(length=128), nullable=True),
+    sa.Column('galaxy_password', sa.String(length=128), nullable=True),
     sa.Column('website', sa.String(length=128), nullable=True),
     sa.Column('affiliation', sa.String(length=128), nullable=True),
     sa.Column('country', sa.String(length=32), nullable=True),

@@ -1,12 +1,15 @@
 import datetime
 import hashlib
 import json
+import random
 from socket import inet_aton, inet_ntoa
 from struct import unpack, pack, error as struct_error
 
 from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import bcrypt_sha256
 from sqlalchemy.exc import DatabaseError
+
+ALPHA = 'qwrtpsdfghjklzxcvbnm'
 
 
 def sha512(string):
@@ -139,6 +142,7 @@ class Teams(db.Model):
     name = db.Column(db.String(128), unique=True)
     email = db.Column(db.String(128), unique=True)
     password = db.Column(db.String(128))
+    galaxy_password = db.Column(db.String(128))
     website = db.Column(db.String(128))
     affiliation = db.Column(db.String(128))
     country = db.Column(db.String(32))
@@ -152,6 +156,8 @@ class Teams(db.Model):
         self.name = name
         self.email = email
         self.password = bcrypt_sha256.encrypt(str(password))
+        self.galaxy_password = ''.join([random.choice(ALPHA) for _ in range(16)])
+
 
     def __repr__(self):
         return '<team %r>' % self.name
